@@ -22,8 +22,6 @@ def voz():
                 SextaFeira.say(comando.replace('sexta-feira',''))
                 SextaFeira.runAndWait()
 
-                    
-
     except:
         print('erro no microfone')
 
@@ -45,17 +43,15 @@ def executar_comandos():
             exe.press(key)
 
     elif "sexta-feira abrir ópera" in comando:
-        app = comando.replace('sexta-feira abrir','')
         run("C:/Users/felip/AppData/Local/Programs/Opera GX/launcher.exe")
 
-    elif 'sexta-feira abrir steam' in comando: 
-        app = comando.replace('sexta-feira abrir','')
-        run("C:\Program Files (x86)\Steam\steam.exe") 
+    elif "sexta-feira abrir app" in comando:
+        item = comando.replace('sexta-feira abrir app','')
+        exe.press('win')
+        exe.write(item, interval=0.3)
+        time.sleep(3)
+        exe.press('enter')
 
-    elif 'sexta-feira abrir epic games' in comando: 
-        app = comando.replace('sexta-feira abrir','')
-        run("C:\Program Files (x86)\Epic Games\Launcher\Portal\Binaries\Win32\EpicGamesLauncher.exe") 
-        
     elif 'sexta-feira abrir site' in comando:
         item = comando.replace('sexta-feira abrir site ','')
         run("C:/Users/felip/AppData/Local/Programs/Opera GX/launcher.exe")
@@ -76,4 +72,25 @@ def executar_comandos():
         musica = comando.replace('sexta-feira reproduzir','')
         resultado = yt.playonyt(musica)
 
-executar_comandos()     
+    elif 'sexta-feira fechar' in comando:
+        exe.hotkey('alt','f4')
+
+    elif 'sexta-feira tarefa' in comando:
+        tarefa = comando.replace('sexta-feira tarefa','')
+        exe.press('win')
+        exe.write("to do", interval=0.5)
+        exe.press('enter')
+        time.sleep(3)
+        exe.hotkey('ctrll','n')
+        exe.write(tarefa, interval=0.5)
+        time.sleep(3)
+        exe.press('enter')
+        exe.hotkey('alt','f4')
+
+
+while True:
+    comando = voz()
+    executar_comandos()  
+    if comando is not None:
+        if 'sexta-feira obrigado' in comando:
+            break
