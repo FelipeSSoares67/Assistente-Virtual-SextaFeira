@@ -14,17 +14,20 @@ def voz():
     comando = None
     try:
         with sr.Microphone() as source:
+            audio.adjust_for_ambient_noise(source)
             print('Ouvindo...')
             voz = audio.listen(source)
             comando = audio.recognize_google(voz, language="pt-br")
             comando = comando.lower()
             if 'sexta-feira' in comando:
                 print(comando.replace('sexta-feira',''))
-                SextaFeira.say(comando.replace('sexta-feira',''))
+                SextaFeira.say(comando.replace('sexta-feira','')) 
                 SextaFeira.runAndWait()
 
-    except:
-        print('erro no microfone')
+    except sr.RequestError as e:
+        print(f"Erro de solicitação: {e}")
+    except Exception as e:
+        print(f"Erro desconhecido: {e}")
 
     return comando
 
@@ -59,7 +62,7 @@ def executar_comandos():
             run("C:/Users/felip/AppData/Local/Programs/Opera GX/launcher.exe")
             time.sleep(1)
             exe.hotkey('ctrl','l')
-            exe.write(f'https://www.{item}.com', interval = 0.1)
+            exe.write(f'https://www.{item}.com  ', interval = 0.1)
             exe.press('enter')
 
         elif 'sexta-feira pesquisar' in comando:
@@ -89,7 +92,10 @@ def executar_comandos():
             exe.press('enter')
             exe.hotkey('alt','f4')
 
+        elif 'sexta-feira pausar' in comando:
+            exe.press('space')
 
 while True:
     executar_comandos()  
+
     
